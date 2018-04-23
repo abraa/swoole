@@ -182,4 +182,14 @@ class SwooleClient extends Client{
 //            $cli->close();
 //        });
     }
+
+    /**
+     * 获取client socket 转换成一个stream socket 可以调用 fread/fwrite/fclose
+     * @param string $model "a+"	读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+     * @return resource
+     */
+    public function getStreamSocket($model = 'a+'){
+        $socket =  fopen("php://fd/".$this->client->sock,$model);
+        return $socket;
+    }
 }
